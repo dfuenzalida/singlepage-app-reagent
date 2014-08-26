@@ -2,10 +2,19 @@
   :description "FIXME: write this!"
   :url "http://example.com/FIXME"
 
-  :dependencies [[org.clojure/clojure "1.6.0"]
+  :dependencies [
+                 ;; server side
+                 [org.clojure/clojure "1.6.0"]
+                 [ring "1.3.0"]
+                 [compojure "1.1.8"]
+                 [ring/ring-json "0.3.1"]
+                 [org.clojure/data.json "0.2.5"]
+
+                 ;; client side
                  [org.clojure/clojurescript "0.0-2311"]
                  [org.clojure/core.async "0.1.267.0-0d7780-alpha"]
-                 [om "0.7.1"]]
+                 [om "0.7.1"]
+                 [cljs-ajax "0.2.6"]]
 
   :plugins [[lein-cljsbuild "1.0.4-SNAPSHOT"]]
 
@@ -18,4 +27,6 @@
                 :output-to "resources/public/js/app.js"
                 :output-dir "resources/public/js/out"
                 :optimizations :none
-                :source-map true}}]})
+                :source-map true}}]}
+
+  :main singlepage-app-om.core)
