@@ -9,13 +9,13 @@
 
   :plugins [[lein-cljsbuild "1.0.4-SNAPSHOT"]]
 
-  :source-paths ["src"]
+  :source-paths ["src", "src-cljs"]
 
-  :cljsbuild { 
-    :builds [{:id "singlepage-app-om"
-              :source-paths ["src"]
+  :cljsbuild {
+    :builds [{:id "dev"
+              :source-paths ["src-cljs"]
               :compiler {
-                :output-to "singlepage_app_om.js"
-                :output-dir "out"
+                :output-to "resources/public/js/app.js"
+                :output-dir "resources/public/js/out"
                 :optimizations :none
                 :source-map true}}]})
