@@ -5,10 +5,12 @@
   :dependencies [
                  ;; server side
                  [org.clojure/clojure "1.6.0"]
-                 [ring "1.3.0"]
-                 [compojure "1.1.8"]
+                 [ring/ring-core "1.3.1"]
+                 [ring/ring-devel "1.3.1"]
                  [ring/ring-json "0.3.1"]
+                 [compojure "1.1.8"]
                  [org.clojure/data.json "0.2.5"]
+                 [http-kit "2.0.0"]
 
                  ;; client side
                  [org.clojure/clojurescript "0.0-2311"]

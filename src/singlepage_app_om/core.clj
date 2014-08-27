@@ -1,20 +1,21 @@
 (ns singlepage-app-om.core
-  (:require [ring.adapter.jetty :as jetty]
-            [ring.util.response :as response]
-            [clojure.data.json :as json])
+  (:require [clojure.data.json :as json]
+            [ring.middleware.reload :as reload]
+            [ring.util.response :as response])
   (:use [compojure.core :only [defroutes GET POST DELETE]]
         [ring.middleware.file-info :only [wrap-file-info]]
         [ring.middleware.json :only [wrap-json-response wrap-json-body]]
         [ring.middleware.params :only [wrap-params]]
         [ring.middleware.resource :only [wrap-resource]]
-        [ring.middleware.session :only [wrap-session]]))
+        [ring.middleware.session :only [wrap-session]]
+        [org.httpkit.server :only [run-server]]))
 
 ;; DATABASE ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def items
   (atom [{:id 1 :name "backend 1" :description "backend descr"}
          {:id 2 :name "clojure items" :description "from clj"}
-         {:id 3 :name "item #301" :description "descr #301"}]))
+         {:id 3 :name "HTTP Kit" :description "descr #301"}]))
 
 (def primary-key (->> @items (map :id) (reduce max) atom))
 
@@ -67,7 +68,10 @@
              ;; wrap-session
              wrap-logging))
 
-(defn -main [& args]
-  (let [port 3000]
-    (println "Starting server on port" port)
-    (jetty/run-jetty app {:port port})))
+(defn in-dev? [& args] true)
+
+(defn -main [& args] ;; entry point, lein run will pick up and start from here
+  (let [handler (if (in-dev? args)
+                  (reload/wrap-reload app) ;; only reload when dev
+                  app)]
+    (run-server handler {:port 3000})))
