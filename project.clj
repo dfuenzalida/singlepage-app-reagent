@@ -1,5 +1,5 @@
 (defproject singlepage-app-om "0.1.0-SNAPSHOT"
-  :description "FIXME: write this!"
+  :description "A Simple Clojure/ClojureScript CRUD single page app using Reagent"
   :url "http://example.com/FIXME"
 
   :dependencies [
